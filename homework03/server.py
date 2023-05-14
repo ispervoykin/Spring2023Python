@@ -1,9 +1,18 @@
 import time
 
 from flask import Flask, request, abort
+import requests
+import random
+from bs4 import BeautifulSoup
 from datetime import datetime
 app = Flask(__name__)
-db = []
+db = [
+    {
+        'time': time.time(),
+        'name': 'AnimeBot',
+        'text': 'Привет! Меня зовут AnimeBot, я могу предложить вам случайное аниме из подборки "MyAnimeList Top 50". Введите "/anime" в сообщении, чтобы я подобрал вам аниме.',
+    },
+]
 
 @app.route("/")
 def hello():
@@ -42,11 +51,52 @@ def send_message():
             not isinstance(text, str) or \
             name == '' or text == '':
         return abort(400)
-    message = {
-        'time': time.time(),
-        'name': name,
-        'text': text
-    }
+
+    anime_numbers = []
+    right_bound = 50    # maximum number of anime in a list
+
+    if text == '/anime':
+
+        if len(anime_numbers) == right_bound:   # clear the list to enable more anime requests
+            anime_numbers.clear()
+
+        page = requests.get('https://myanimelist.net/topanime.php')
+
+        soup = BeautifulSoup(page.text, "html.parser")
+        rand_number = random.randint(1, right_bound)
+        while rand_number in anime_numbers:       # discard the already shown anime
+            rand_number = random.randint(1, 50)
+
+        movies = soup.find_all('tr', {'class': 'ranking-list'})
+        title = movies[rand_number].find('div', {'class': 'di-ib clearfix'}).find('a').contents[0]
+        score = movies[rand_number].find('td', {'class': 'score ac fs14'}).find('span').contents[0]
+        link = movies[rand_number].find('a')['href']
+
+        answer = f'Аниме: {title}\nМесто: {rand_number}\nРейтинг: {score}\nУзнать подробнее: {link}'
+
+
+        message = {
+            'time': time.time(),
+            'name': 'AnimeBot',
+            'text': answer,
+        }
+        """
+
+        page = requests.get('https://www.imdb.com/chart/top/?ref_=nv_mv_250')
+        IMDb_url = 'https://www.imdb.com'
+        soup = BeautifulSoup(page.text, "html.parser")
+        movies = soup.find_all('tr')
+        random_number = random.randint(1, 250)
+        choosen_movie = movies[random_number]
+        print(choosen_movie)
+        """
+    else:
+        message = {
+            'time': time.time(),
+            'name': name,
+            'text': text,
+        }
+
     db.append(message)
     return {"ok": True}
 
