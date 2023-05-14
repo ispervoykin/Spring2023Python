@@ -1,4 +1,4 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 import clientui, requests, datetime
 from datetime import datetime
 
@@ -12,7 +12,7 @@ class Messenger(QtWidgets.QMainWindow, clientui.Ui_MainWindow):
         self.after = 0
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.get_messages)
-        self.timer.start(5000)
+        self.timer.start(2500)
 
     def print_message(self, message):
         t = message["time"]
@@ -63,6 +63,6 @@ class Messenger(QtWidgets.QMainWindow, clientui.Ui_MainWindow):
 
 
 app = QtWidgets.QApplication([])
-window = Messenger(host="https://a2a3-109-252-165-23.ngrok-free.app")
+window = Messenger(host="http://127.0.0.1:5000")
 window.show()
 app.exec()
