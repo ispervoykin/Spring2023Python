@@ -12,7 +12,7 @@ class Messenger(QtWidgets.QMainWindow, clientui.Ui_MainWindow):
         self.after = 0
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.get_messages)
-        self.timer.start(1000)
+        self.timer.start(5000)
 
     def print_message(self, message):
         t = message["time"]
@@ -63,6 +63,6 @@ class Messenger(QtWidgets.QMainWindow, clientui.Ui_MainWindow):
 
 
 app = QtWidgets.QApplication([])
-window = Messenger(host="https://71b7-2a00-1370-819e-552a-d7f-54b3-4b5e-4b7e.ngrok-free.app")
+window = Messenger(host="https://a2a3-109-252-165-23.ngrok-free.app")
 window.show()
 app.exec()
