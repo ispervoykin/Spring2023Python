@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import requests, time
 from datetime import datetime
 
@@ -49,5 +48,3 @@ while True:
         after = message["time"]
 
     time.sleep(1)
-
->>>>>>> 9da9ad5897043b2dc2b400e92df224257804c46f
