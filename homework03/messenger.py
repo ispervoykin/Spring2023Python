@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from PyQt5 import QtCore, QtGui, QtWidgets
 import clientui, requests, datetime
 from datetime import datetime
@@ -136,4 +135,3 @@ app = QtWidgets.QApplication([])
 window = Messenger(host="http://127.0.0.1:5000")
 window.show()
 app.exec()
->>>>>>> 9da9ad5897043b2dc2b400e92df224257804c46f
