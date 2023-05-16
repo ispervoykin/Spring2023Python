@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Form implementation generated from reading ui file 'messenger.ui'
 #
 # Created by: PyQt6 UI code generator 6.5.0
@@ -192,4 +191,3 @@ class Ui_MainWindow(object):
         self.textEdit.setPlaceholderText(_translate("MainWindow", "Напишите сообщение..."))
         self.pushButton.setText(_translate("MainWindow", "^"))
         self.label_2.setText(_translate("MainWindow", "Ваше имя: "))
->>>>>>> 9da9ad5897043b2dc2b400e92df224257804c46f
